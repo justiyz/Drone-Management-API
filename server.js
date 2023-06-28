@@ -16,6 +16,10 @@ app.use(express.urlencoded({extended: true}))
 //routers
 const router = require('./routes/dronesRouter.js')
 app.use('/api/drones', router)
+const router2 = require('./routes/medicationsRouter.js')
+app.use('/api/medications', router2)
+
+
 
 // testing api
 app.get('/', (req, res) => {
