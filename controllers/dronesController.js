@@ -1,4 +1,6 @@
 const db = require('../models')
+// const MyCustomError = require('../errors/MyCustomError.js')
+
 
 //create main model
 const Drone = db.drones
@@ -7,14 +9,18 @@ const Medication = db.medications
 
 //register drone
 const registerDrone = async (req, res) => {
+
+    if (req.body.weight_limit > 500) {
+        res.status(400).json({message: 'weight limit should not exceed 500'});
+        // throw new Error('weight limit should not exceed 500');
+      } 
     let info = {
         serial_number: req.body.serial_number,
         model: req.body.model,
-        weight_limit: req.body.weight_limit,
+        weight_limit: req.body.weight_limit ? req.body.weight_limit  : 500,
         battery_capacity: req.body.battery_capacity,
-        state: req.body.state ? req.body.state : 'IDLE',
+        state: req.body.state ? req.body.state : 'LOADING',
         is_battery_level_low: req.body.isBatteryLevelLow ? req.body.isBatteryLevelLow : false
-
     }
 
     const drone = await Drone.create(info)
@@ -37,7 +43,7 @@ const findAllMedicationsOfADrone = async (req, res) => {
 
 //check available drones for loading
 const findAllAvailableDrones = async (req, res) => {
-    let drones = await Drone.findAll({where: {state: 'IDLE'}})
+    let drones = await Drone.findAll({where: {state: 'LOADING'}})
     res.status(200).send(drones)
 }
 
@@ -46,20 +52,19 @@ const checkDroneBatteryLevel = async (req, res) => {
     let id = req.params.id
     let drone = await Drone.findOne({where: {id: id}})
     if (drone === null) {
-        console.log(' not found ')
+        res.status(400).json({message: 'drone not found'});
     } else {
-        res.status(200).send(drone)
+        res.status(200).send(drone.battery_capacity)
     }
 }
 
 
 //find drone by id using the id from the req param
 const findDroneById = async (req, res) => {
-    console.log('DRONE -> {}', req.params.id)
     let id = req.params.id
     let drone = await Drone.findOne({where: {id: id}})
     if (drone === null) {
-        res.status(400).json({error: 'Drone not found'})
+        res.status(400).json({message: 'drone not found'});
     } else {
         res.status(200).send(drone)
     }
@@ -69,18 +74,11 @@ const findDroneById = async (req, res) => {
 const findById = async (drone_id) => {
     let drone = await Drone.findByPk(drone_id)
     if (drone === null) {
-        //HANDLE ERROR HERE
+        res.status(400).json({message: 'drone not found'});
     } else {
         return drone;
     }
 }
-
-//check if drone exists
-
-
-//periodic tasks to check drone battery levels
-
-
 
 
 module.exports = {

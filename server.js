@@ -26,6 +26,15 @@ app.get('/', (req, res) => {
     res.json({message: 'hello from drone-management api'})
 })
 
+
+
+
+//error handling middleware
+const errorMiddleware = require('./middleware/errorMiddleware.js')
+app.use(errorMiddleware)
+
+
+
 //port
 const PORT = process.env.PORT || 8080
 
@@ -37,7 +46,7 @@ app.listen(PORT, () => {
 //cron job
 // Import the checkBatteryLevels function from the batteryCheck.js file
 const { checkBatteryLevels } = require('./config/batteryCheck.js');
+checkBatteryLevels(); // Start the periodic battery check when the application starts
 
-// Start the periodic battery check when the application starts
-checkBatteryLevels();
+
 

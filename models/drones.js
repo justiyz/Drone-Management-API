@@ -1,4 +1,5 @@
 const {DataTypes} = require("sequelize");
+const { StatusEnum, ModelEnum } = require('../enum');
 
 module.exports = (sequelize, DataTypes) => {
     const Drone = sequelize.define("drone", {
