@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 
 
 const app = express();
@@ -28,7 +29,6 @@ app.get('/', (req, res) => {
 
 
 
-
 //error handling middleware
 const errorMiddleware = require('./middleware/errorMiddleware.js')
 app.use(errorMiddleware)
@@ -47,6 +47,8 @@ app.listen(PORT, () => {
 // Import the checkBatteryLevels function from the batteryCheck.js file
 const { checkBatteryLevels } = require('./config/batteryCheck.js');
 checkBatteryLevels(); // Start the periodic battery check when the application starts
+
+
 
 
 

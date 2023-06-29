@@ -1,9 +1,13 @@
 module.exports = {
-    HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: '1994',
-    DB: 'drone_db',
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB_DATABASE,
     dialect: 'mysql',
+
+
+    // dialect: 'mysql',
+    // storage: ':memory:', // Use in-memory storage
 
     pool: {
         max: 5,
