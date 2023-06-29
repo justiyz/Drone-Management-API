@@ -4,6 +4,7 @@ const db = require('../models')
 const Drone = db.drones
 const Medication = db.medications
 
+
 //register drone
 const registerDrone = async (req, res) => {
     let info = {
@@ -21,15 +22,6 @@ const registerDrone = async (req, res) => {
     console.log(drone)
 }
 
-// //load drone with medicated items
-// const loadDrone = async (req, res) => {
-
-//     let data = {
-//         medications: {
-//             id: req.body.id,
-//         }
-//     }
-// }
 
 //check all medications of a drone
 const findAllMedicationsOfADrone = async (req, res) => {
@@ -61,14 +53,25 @@ const checkDroneBatteryLevel = async (req, res) => {
 }
 
 
-//find drone by id
+//find drone by id using the id from the req param
 const findDroneById = async (req, res) => {
+    console.log('DRONE -> {}', req.params.id)
     let id = req.params.id
     let drone = await Drone.findOne({where: {id: id}})
     if (drone === null) {
-        console.log('drone not found')
+        res.status(400).json({error: 'Drone not found'})
     } else {
         res.status(200).send(drone)
+    }
+}
+
+//find drone by id using the id(primary key) from the req body
+const findById = async (drone_id) => {
+    let drone = await Drone.findByPk(drone_id)
+    if (drone === null) {
+        //HANDLE ERROR HERE
+    } else {
+        return drone;
     }
 }
 
@@ -79,11 +82,12 @@ const findDroneById = async (req, res) => {
 
 
 
+
 module.exports = {
     registerDrone,
-    // loadDrone,
     findAllMedicationsOfADrone,
     findAllAvailableDrones,
     checkDroneBatteryLevel,
-    findDroneById
+    findDroneById,
+    findById
 }

@@ -1,7 +1,9 @@
 const db = require('../models')
+const droneController = require('../controllers/dronesController')
 
 //model
 const Medication = db.medications
+
 
 const addMedication = async (req, res) => {
     let data = {
@@ -25,24 +27,27 @@ const findALLMedications = async (req, res) => {
 //load drone with medicated items
 const loadDrone = async (req, res) => {
     try {
-    const medications = req.body.medications
-    const saveItems = []
+        let droneId = req.body.drone_id;
+        let drone = await droneController.findById(droneId)
+        
+        const medications = req.body.medications
+        const saveItems = []
 
         for (const medication of medications) {
-            if (medication.drone_id !== null) {
+            if (drone.battery_capacity > 25) {
                 let data = {
                     name: medication.name,
                     weight: medication.weight,
                     code: medication.code,
                     image: medication.image,
-                    drone_id: medication.drone_id,
+                    drone_id: drone.id,
                     id: medication.id
                 }
                 const newMedication = await Medication.create(data)
-                saveItems.push(newMedication)
+                saveItems.push(newMedication) 
             } else {
-                //Handle Error because in loading a drone, a drone has to first exist in the db
-            }
+                //HANDLE ERROR
+                }
         }
         res.status(200).send(saveItems)
         
@@ -50,6 +55,8 @@ const loadDrone = async (req, res) => {
         console.log(error)
         res.status(500).json({error: 'Failed to saved items'})
     }
+
+    
     
     
 }
