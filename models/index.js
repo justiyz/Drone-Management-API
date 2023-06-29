@@ -40,7 +40,16 @@ db.sequelize.sync({force: false})
     console.log('yes re-sync done')
     })
 
-   
+    // Define the association between Drone and Medication which is a 1 to many relationship
+    db.drones.hasMany(db.medications, {
+    foreignKey: 'drone_id',
+    as: 'medication'
+    })
+
+db.medications.belongsTo(db.drones, {
+    foreignKey: 'drone_id',
+    as: 'drone'
+    })
 
 
 

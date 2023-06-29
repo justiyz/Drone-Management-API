@@ -21,11 +21,27 @@ const registerDrone = async (req, res) => {
     console.log(drone)
 }
 
-//load drone with medicated items
-const loadDrone = async (req, res) => {}
+// //load drone with medicated items
+// const loadDrone = async (req, res) => {
+
+//     let data = {
+//         medications: {
+//             id: req.body.id,
+//         }
+//     }
+// }
 
 //check all medications of a drone
-const findAllMedicationsOfADrone = async (req, res) => {}
+const findAllMedicationsOfADrone = async (req, res) => {
+    const data = await Drone.findAll({
+        include: [{
+            model: Medication,
+            as: 'medication'
+        }],
+        where: {id: req.params.id}
+    })
+    res.status(200).send(data)
+}
 
 //check available drones for loading
 const findAllAvailableDrones = async (req, res) => {
@@ -39,6 +55,8 @@ const checkDroneBatteryLevel = async (req, res) => {
     let drone = await Drone.findOne({where: {id: id}})
     if (drone === null) {
         console.log(' not found ')
+    } else {
+        res.status(200).send(drone)
     }
 }
 
@@ -60,9 +78,10 @@ const findDroneById = async (req, res) => {
 //periodic tasks to check drone battery levels
 
 
+
 module.exports = {
     registerDrone,
-    loadDrone,
+    // loadDrone,
     findAllMedicationsOfADrone,
     findAllAvailableDrones,
     checkDroneBatteryLevel,
