@@ -13,6 +13,7 @@ router.get('/find-all-available', droneController.findAllAvailableDrones)
 router.get('/check-drone/:id', droneController.checkDroneBatteryLevel)
 router.get('/:id', droneController.findDroneById)
 router.get('/medications/:id', droneController.findAllMedicationsOfADrone)
+router.get('/find-one', droneController.findById)
 
 
 module.exports = router

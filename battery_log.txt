@@ -1,0 +1,14 @@
+2023-06-29T11:06:43.771Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:06:43.771Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:07:00.846Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:07:00.845Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:08:00.338Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:08:00.338Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:09:00.876Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:09:00.876Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:10:00.330Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:10:00.331Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:11:00.709Z: Drone 1 - Battery Level: 90%
+2023-06-29T11:11:00.711Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:12:00.049Z: Drone 2 - Battery Level: 55%
+2023-06-29T11:12:00.049Z: Drone 1 - Battery Level: 90%

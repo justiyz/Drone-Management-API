@@ -33,3 +33,11 @@ const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`)
 })
+
+//cron job
+// Import the checkBatteryLevels function from the batteryCheck.js file
+const { checkBatteryLevels } = require('./config/batteryCheck.js');
+
+// Start the periodic battery check when the application starts
+checkBatteryLevels();
+
